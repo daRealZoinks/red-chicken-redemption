@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -36,9 +35,9 @@ public class PlayerMovement : MonoBehaviour
     {
         var contacts = collision.contacts;
 
-        var wdfegrt = contacts.Any(contact => Vector3.Dot(contact.normal, Vector3.up) > 0.5f);
+        var isStandingOnSurface = contacts.Any(contact => Vector3.Dot(contact.normal, Vector3.up) > 0.5f);
 
-        isGrounded = wdfegrt;
+        isGrounded = isStandingOnSurface;
     }
 
     private void OnCollisionExit()
@@ -49,6 +48,15 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         Move(moveInput);
+
+        AppliAdditionalGravity();
+    }
+
+    private void AppliAdditionalGravity()
+    {
+        if (isGrounded) return;
+
+        rb.AddForce(Physics.gravity * (gravityScale - 1), ForceMode.Acceleration);
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -60,6 +68,14 @@ public class PlayerMovement : MonoBehaviour
         };
 
         moveInput = value;
+    }
+
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started)
+        {
+            Jump();
+        }
     }
 
     private void Move(Vector2 moveInput)
@@ -91,5 +107,13 @@ public class PlayerMovement : MonoBehaviour
         }
 
         rb.AddForce(finalForce, ForceMode.Acceleration);
+    }
+
+    private void Jump()
+    {
+        if (!isGrounded) return;
+
+        var jumpVelocity = Mathf.Sqrt(jumpHeight * 2f * Mathf.Abs(Physics.gravity.y));
+        rb.velocity = new Vector3(rb.velocity.x, jumpVelocity, rb.velocity.z);
     }
 }
