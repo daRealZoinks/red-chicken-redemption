@@ -7,18 +7,12 @@ public class Bullet : MonoBehaviour
 {
     public Rigidbody rb;
     public GameObject explosion;
-    public string whatEnemy;
-
     [Range(0f, 1f)]
-    public float bounciness;
-    public bool useGravity;
-
-    public int explosionDamage;
-    public float explosionRange;
-
-    public int maxCollisions;
-    public float maxLifetime;
-    public bool explodeOnTouch = true;
+    public float bounciness = 0.5f;
+    public float explosionRange, maxLifetime;
+    public int explosionDamage, maxCollisions;
+    bool explodeOnTouch = true, useGravity = true;
+    string whatEnemy = "Enemy";
 
     int collisions;
     PhysicMaterial physics_mat;
@@ -81,10 +75,12 @@ public class Bullet : MonoBehaviour
 
     private void Setup()
     {
-        physics_mat = new PhysicMaterial();
-        physics_mat.bounciness = bounciness;
-        physics_mat.frictionCombine = PhysicMaterialCombine.Minimum;
-        physics_mat.bounceCombine = PhysicMaterialCombine.Maximum;
+        physics_mat = new PhysicMaterial
+        {
+            bounciness = bounciness,
+            frictionCombine = PhysicMaterialCombine.Minimum,
+            bounceCombine = PhysicMaterialCombine.Maximum
+        };
         GetComponent<SphereCollider>().material = physics_mat;
 
         rb.useGravity = useGravity;

@@ -149,8 +149,8 @@ MonoBehaviour:
   rb: {fileID: 6041480429070508997}
   explosion: {fileID: 0}
   whatEnemy: Enemy
-  bounciness: 0
-  useGravity: 0
+  bounciness: 0.21
+  useGravity: 1
   explosionDamage: 3
   explosionRange: 4
   maxCollisions: 1
