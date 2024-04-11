@@ -62,7 +62,7 @@ public class Bullet : MonoBehaviour
     }
 
     private void Delay() {
-        Destroy(gameObject);
+        // Destroy(gameObject);
     }
 
     private void OnCollisionEnter(Collision collision)
