@@ -453,7 +453,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8265039307966894430}
-  m_Material: {fileID: 13400000, guid: 10c4b778ed6c29747bae9ab72e333f4b, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -509,5 +509,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletObj: {fileID: 0}
+  target: {fileID: 0}
   fireRate: 1
   nextFireTime: 0
