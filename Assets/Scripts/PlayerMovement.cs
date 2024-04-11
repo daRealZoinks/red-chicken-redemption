@@ -8,17 +8,17 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")] [SerializeField] private float maxSpeed = 13f;
 
-    [SerializeField] private float acceleration = 64f;
+    [SerializeField] private float acceleration = 96f;
 
     [SerializeField] private float deceleration = 128f;
 
     [Space] [Header("Jump")] [SerializeField]
-    private float jumpHeight = 3f;
+    private float jumpHeight = 2.5f;
 
-    [Range(0, 1f)] [SerializeField] private float airControl = 0.1f; // 0 - 1
+    [Range(0, 1f)] [SerializeField] private float airControl = 0.5f; // 0 - 1
     [Range(0, 1f)] [SerializeField] private float airBreak = 0f; // 0 - 1
 
-    [SerializeField] private float gravityScale = 1.5f;
+    [SerializeField] private float gravityScale = 6f;
 
     [Space] [Header("Camera")] [SerializeField]
     private float sensitivity = 1f;
