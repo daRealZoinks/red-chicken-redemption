@@ -57,7 +57,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -95,9 +95,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdcf54ecca17a4e4181b81089ab2360d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lifetime: 3
   speed: 20
   body: {fileID: 5368934066070159106}
-  target: {fileID: 6634389531025153040, guid: 53e5857f5a7244f45b756c205c6f06cd, type: 3}
 --- !u!1 &5587462874974412955
 GameObject:
   m_ObjectHideFlags: 0
