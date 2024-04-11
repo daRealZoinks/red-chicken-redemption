@@ -7,7 +7,7 @@ public class Bullet : MonoBehaviour
 {
     public Rigidbody rb;
     public GameObject explosion;
-    public LayerMask whatIsEnemies;
+    public string whatEnemy;
 
     [Range(0f, 1f)]
     public float bounciness;
@@ -43,12 +43,14 @@ public class Bullet : MonoBehaviour
 
     private void Explode()
     {
-        if(explosion != null) 
+        if (explosion != null)
             Instantiate(explosion, transform.position, Quaternion.identity);
 
-        Collider[] enemies = Physics.OverlapSphere(transform.position, explosionRange, whatIsEnemies);
-        for(int i = 0; i < enemies.Length; i++){
-            if(enemies[i].GetComponent<Enemy>() != null){
+        Collider[] enemies = Physics.OverlapSphere(transform.position, explosionRange, LayerMask.GetMask(whatEnemy));
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            if (enemies[i].GetComponent<Enemy>() != null)
+            {
                 // enemies[i].GetComponent<Enemy>().TakeDamage(explosionDamage);
             }
         }
@@ -56,13 +58,15 @@ public class Bullet : MonoBehaviour
         Invoke("Delay", 0.05f);
     }
 
-    private void OnDrawGizmosSelected() {
+    private void OnDrawGizmosSelected()
+    {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, explosionRange);
     }
 
-    private void Delay() {
-        // Destroy(gameObject);
+    private void Delay()
+    {
+        Destroy(gameObject);
     }
 
     private void OnCollisionEnter(Collision collision)
