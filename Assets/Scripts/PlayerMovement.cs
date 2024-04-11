@@ -1,34 +1,42 @@
 using System;
 using System.Linq;
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [Header("Movement")]
-    [SerializeField] private float maxSpeed = 13f;
+    [Header("Movement")] [SerializeField] private float maxSpeed = 13f;
 
     [SerializeField] private float acceleration = 64f;
 
     [SerializeField] private float deceleration = 128f;
 
-    [Space]
-    [Header("Jump")]
-    [SerializeField] private float jumpHeight = 3f;
-    [Range(0, 1f)]
-    [SerializeField] private float airControl = 0.1f; // 0 - 1
-    [Range(0, 1f)]
-    [SerializeField] private float airBreak = 0f; // 0 - 1
+    [Space] [Header("Jump")] [SerializeField]
+    private float jumpHeight = 3f;
+
+    [Range(0, 1f)] [SerializeField] private float airControl = 0.1f; // 0 - 1
+    [Range(0, 1f)] [SerializeField] private float airBreak = 0f; // 0 - 1
 
     [SerializeField] private float gravityScale = 1.5f;
+
+    [Space] [Header("Camera")] [SerializeField]
+    private float sensitivity = 1f;
+
+    [SerializeField] private CinemachineVirtualCamera virtualCamera;
 
     private Rigidbody rb;
     private bool isGrounded;
     private Vector2 moveInput;
+    private Vector2 lookInput;
+    private float xRotation;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     private void OnCollisionStay(Collision collision)
@@ -52,6 +60,11 @@ public class PlayerMovement : MonoBehaviour
         AppliAdditionalGravity();
     }
 
+    private void Update()
+    {
+        Rotate(lookInput);
+    }
+
     private void AppliAdditionalGravity()
     {
         if (isGrounded) return;
@@ -68,6 +81,17 @@ public class PlayerMovement : MonoBehaviour
         };
 
         moveInput = value;
+    }
+
+    public void OnLook(InputAction.CallbackContext context)
+    {
+        var value = context.phase switch
+        {
+            InputActionPhase.Started or InputActionPhase.Performed => context.ReadValue<Vector2>(),
+            _ => Vector2.zero,
+        };
+
+        lookInput = value;
     }
 
     public void OnJump(InputAction.CallbackContext context)
@@ -109,11 +133,24 @@ public class PlayerMovement : MonoBehaviour
         rb.AddForce(finalForce, ForceMode.Acceleration);
     }
 
+    private void Rotate(Vector2 lookInput)
+    {
+        xRotation -= lookInput.y * sensitivity;
+        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+
+        var localRotation = virtualCamera.transform.localRotation;
+
+        localRotation = Quaternion.Euler(xRotation, localRotation.eulerAngles.y, localRotation.eulerAngles.z);
+        virtualCamera.transform.localRotation = localRotation;
+
+        rb.MoveRotation(rb.rotation * Quaternion.Euler(0f, lookInput.x * sensitivity, 0f));
+    }
+
     private void Jump()
     {
         if (!isGrounded) return;
 
-        var jumpVelocity = Mathf.Sqrt(jumpHeight * 2f * Mathf.Abs(Physics.gravity.y));
+        var jumpVelocity = Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y * gravityScale);
         rb.velocity = new Vector3(rb.velocity.x, jumpVelocity, rb.velocity.z);
     }
 }
