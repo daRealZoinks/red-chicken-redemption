@@ -8,7 +8,8 @@ public class Gun : MonoBehaviour
     public GameObject bullet, muzzleFlash;
     public TextMeshProUGUI ammunitionDisplay;
     public float shootForce, upwardForce, timeBetweenShooting, spread, reloadTime, timeBetweenShots;
-    public int magazineSize, bulletsPerTap, bulletsLeft, bulletsShot;
+    public int magazineSize, bulletsPerTap;
+    int bulletsLeft, bulletsShot;
     public bool allowButtonHold, allowInvoke = true;
 
     bool shooting, readyToShoot, reloading;
