@@ -15,9 +15,6 @@ public class EnemyBulletMovement : MonoBehaviour
     void Start()
     {
         body = GetComponent<Rigidbody>();
-        body.drag = 0f;
-        body.useGravity = false;
-        body.angularDrag = 0f;
     }
 
     void Update()
