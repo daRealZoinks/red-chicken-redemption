@@ -84,7 +84,7 @@ public class Gun : MonoBehaviour {
 
 		muzzleFlash.GetComponent<ParticleSystem>().Play();
 		animator.SetTrigger("RECOIL");
-		SoundManager.Instance.gunShootingSound.Play();
+		SoundManager.Instance.sound.Play();
 
 		if(allowInvoke) {
 			Invoke("ResetShot", timeBetweenShooting);
