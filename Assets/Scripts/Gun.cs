@@ -100,6 +100,7 @@ public class Gun : MonoBehaviour
 
         if (bulletsShot < bulletsPerTap && bulletsLeft > 0)
         {
+            muzzleFlash.GetComponent<ParticleSystem>().Play();
             Invoke("Shoot", timeBetweenShots);
         }
     }
