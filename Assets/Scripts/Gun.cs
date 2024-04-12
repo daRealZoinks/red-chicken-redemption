@@ -38,9 +38,6 @@ public class Gun : MonoBehaviour {
 		if(Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !reloading) {
 			Reload();
 		}
-		//if(readyToShoot && shooting && !reloading && bulletsLeft <= 0) {
-		//	Reload();
-		//}
 
 		if(readyToShoot && shooting && !reloading && bulletsLeft > 0) {
 			bulletsShot = 0;
@@ -105,6 +102,7 @@ public class Gun : MonoBehaviour {
 
 	private void Reload() {
 		reloading = true;
+		animator.SetTrigger("RELOAD");
 		Invoke("ReloadFinished", reloadTime);
 	}
 
