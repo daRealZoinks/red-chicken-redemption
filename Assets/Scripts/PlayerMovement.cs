@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Cinemachine;
 using UnityEngine;
@@ -37,6 +38,8 @@ public class PlayerMovement : MonoBehaviour, IDamageable
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        OnHealthChanged?.Invoke(Health);
     }
 
     private void OnCollisionStay(Collision collision)
@@ -154,16 +157,19 @@ public class PlayerMovement : MonoBehaviour, IDamageable
         rb.velocity = new Vector3(rb.velocity.x, jumpVelocity, rb.velocity.z);
     }
 
-    public int Health { get; set; } = 100;
+    public int Health { get; set; } = 500;
 
     public void TakeDamage(int damage)
     {
         Health -= damage;
+        OnHealthChanged?.Invoke(Health);
         if (Health <= 0)
         {
             Die();
         }
     }
+
+    public Action<int> OnHealthChanged { get; set; }
 
     public void Die()
     {

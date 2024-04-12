@@ -83,6 +83,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &2187236847861387733
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8271662482258351538}
+  m_Layer: 0
+  m_Name: Firepoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8271662482258351538
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2187236847861387733}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6634389531025153040}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4089035027495853363
 GameObject:
   m_ObjectHideFlags: 0
@@ -94,7 +125,6 @@ GameObject:
   - component: {fileID: 887615347465444951}
   - component: {fileID: 7782090543166385879}
   - component: {fileID: 2632038531494882744}
-  - component: {fileID: 9213368405238550970}
   m_Layer: 0
   m_Name: Sphere (1)
   m_TagString: Untagged
@@ -167,27 +197,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &9213368405238550970
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4089035027495853363}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6040885154141033341
 GameObject:
   m_ObjectHideFlags: 0
@@ -199,7 +208,6 @@ GameObject:
   - component: {fileID: 4144557968797549661}
   - component: {fileID: 8526177936383557156}
   - component: {fileID: 5699509218252955517}
-  - component: {fileID: 2465871453349185656}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -272,27 +280,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &2465871453349185656
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6040885154141033341}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8265039307966894430
 GameObject:
   m_ObjectHideFlags: 0
@@ -329,6 +316,7 @@ Transform:
   - {fileID: 6953342187791266485}
   - {fileID: 4144557968797549661}
   - {fileID: 887615347465444951}
+  - {fileID: 8271662482258351538}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &3063509697725229817
@@ -380,7 +368,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 112
-  m_CollisionDetection: 1
+  m_CollisionDetection: 0
 --- !u!114 &450680506378045670
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -393,8 +381,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a74eb46f5fb983941a1dbc9741a2a494, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 4883579314265448873, guid: 5607608b90adfbe4799fe687d35373de,
+  firePoint: {fileID: 8271662482258351538}
+  bulletPrefab: {fileID: 6123311218498923325, guid: 7c149bc95d2aff040b0b5484c9661358,
     type: 3}
+  bulletSpeed: 20
   minInterval: 1
   maxInterval: 3
 --- !u!1001 &3215497097146994218

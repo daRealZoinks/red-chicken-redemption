@@ -1,9 +1,14 @@
+using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class Enemy : MonoBehaviour, IDamageable
 {
-    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private Transform firePoint;
+
+    [SerializeField] private Bullet bulletPrefab;
+
+    [SerializeField] private float bulletSpeed = 20;
 
     [SerializeField] private int minInterval = 1;
     [SerializeField] private int maxInterval = 3;
@@ -14,9 +19,9 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         target = GameObject.FindGameObjectWithTag("Player").transform;
 
-        var time = Random.Range(minInterval * 100, maxInterval * 100) / 100f;
+        var repeatRate = Random.Range(minInterval * 100, maxInterval * 100) / 100f;
 
-        InvokeRepeating(nameof(Fire), time, time);
+        InvokeRepeating(nameof(Fire), repeatRate, repeatRate);
     }
 
     private void Update()
@@ -29,9 +34,10 @@ public class Enemy : MonoBehaviour, IDamageable
 
     private void Fire()
     {
-        var bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-        var bulletMovement = bullet.GetComponent<EnemyBulletMovement>();
-        bulletMovement.SetTarget(target);
+        var bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        var bulletRigidbody = bullet.GetComponent<Rigidbody>();
+        var direction = target.position - transform.position;
+        bulletRigidbody.AddForce(direction.normalized * bulletSpeed, ForceMode.Impulse);
     }
 
     public int Health { get; set; } = 100;
@@ -44,6 +50,8 @@ public class Enemy : MonoBehaviour, IDamageable
             Die();
         }
     }
+
+    public Action<int> OnHealthChanged { get; set; }
 
     public void Die()
     {

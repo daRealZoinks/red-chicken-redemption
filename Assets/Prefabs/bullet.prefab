@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6123311218498923325}
   - component: {fileID: 820278868828714286}
   m_Layer: 0
-  m_Name: bullet
+  m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -94,7 +94,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2017783192638287047}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: b28ae083b6a7e784792bb599c0905347, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -134,7 +134,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 1
+  m_CollisionDetection: 2
 --- !u!114 &6123311218498923325
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,13 +147,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 832a2cad15e4dd243bb1847ec1e65839, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 6041480429070508997}
-  explosion: {fileID: 0}
-  bounciness: 0.21
-  explosionRange: 4
-  maxLifetime: 2
-  explosionDamage: 3
-  maxCollisions: 1
+  damage: 50
+  lifeTime: 3
 --- !u!96 &820278868828714286
 TrailRenderer:
   serializedVersion: 3
