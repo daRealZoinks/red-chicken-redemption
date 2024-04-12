@@ -439,6 +439,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: maisonwest
       objectReference: {fileID: 0}
+    - target: {fileID: 1383440318125851000, guid: c109d8e05eed04d40bc18d0ca75557d7,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 34e9dc010bc4ec5439740cf4c4094dba, type: 2}
     - target: {fileID: 1578464679659572417, guid: c109d8e05eed04d40bc18d0ca75557d7,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -454,6 +459,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 1118d7d28a890634fab9c5b70d1e461e, type: 2}
+    - target: {fileID: 3930236749985492525, guid: c109d8e05eed04d40bc18d0ca75557d7,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 34e9dc010bc4ec5439740cf4c4094dba, type: 2}
     - target: {fileID: 4725773214620646526, guid: c109d8e05eed04d40bc18d0ca75557d7,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -463,7 +473,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 1118d7d28a890634fab9c5b70d1e461e, type: 2}
+      objectReference: {fileID: 2100000, guid: 34e9dc010bc4ec5439740cf4c4094dba, type: 2}
     - target: {fileID: 6355386514844700808, guid: c109d8e05eed04d40bc18d0ca75557d7,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -609,74 +619,6 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: d28e87d8939d8fb4daba768c5bb0b798, type: 2}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 49c9dbac93e78824e81ef8ce693869d6, type: 3}
---- !u!1001 &838010485
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: 49c9dbac93e78824e81ef8ce693869d6,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 22.143543
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 49c9dbac93e78824e81ef8ce693869d6,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 8.8
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 49c9dbac93e78824e81ef8ce693869d6,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -57.74785
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 49c9dbac93e78824e81ef8ce693869d6,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 49c9dbac93e78824e81ef8ce693869d6,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 49c9dbac93e78824e81ef8ce693869d6,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 49c9dbac93e78824e81ef8ce693869d6,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 49c9dbac93e78824e81ef8ce693869d6,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 49c9dbac93e78824e81ef8ce693869d6,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 49c9dbac93e78824e81ef8ce693869d6,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 49c9dbac93e78824e81ef8ce693869d6,
-        type: 3}
-      propertyPath: m_Name
-      value: horsestand_scene (1)
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1437,5 +1379,4 @@ SceneRoots:
   - {fileID: 1040391371}
   - {fileID: 1399312161}
   - {fileID: 1777081878}
-  - {fileID: 838010485}
   - {fileID: 330480363}
