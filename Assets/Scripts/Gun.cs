@@ -1,114 +1,141 @@
-using TMPro;
+using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class Gun : MonoBehaviour {
-	public GameObject bullet, muzzleFlash;
-	public TextMeshProUGUI ammunitionDisplay;
-	public float shootForce, upwardForce, timeBetweenShooting, spread, reloadTime, timeBetweenShots;
-	public int magazineSize, bulletsPerTap;
-	public Camera fpsCam;
-	public Transform attackPoint;
-	public bool allowButtonHold, allowInvoke = true;
-	int bulletsLeft, bulletsShot;
+public class Gun : MonoBehaviour
+{
+    [SerializeField] private GameObject bullet;
+    [SerializeField] private GameObject muzzleFlash;
 
-	bool shooting, readyToShoot, reloading;
+    [SerializeField] private float shootForce;
+    [SerializeField] private float upwardForce;
+    [SerializeField] private float timeBetweenShooting;
+    [SerializeField] private float spread;
+    [SerializeField] private float reloadTime;
+    [SerializeField] private float timeBetweenShots;
+    [SerializeField] private int magazineSize;
+    [SerializeField] private int bulletsPerTap;
 
-	private Animator animator;
+    [SerializeField] private AudioSource reloadSound;
+    [SerializeField] private AudioSource[] shootSounds;
 
-	private void Awake() {
-		bulletsLeft = magazineSize;
-		animator = GetComponent<Animator>();
-		readyToShoot = true;
-	}
+    [SerializeField] private Transform attackPoint;
+    [SerializeField] private bool allowButtonHold;
+    [SerializeField] private bool allowInvoke = true;
 
-	private void Update() {
-		MyInput();
-		if(ammunitionDisplay != null) {
-			ammunitionDisplay.SetText(bulletsLeft / bulletsPerTap + " / " + magazineSize / bulletsPerTap);
-		}
-	}
+    private int bulletsLeft;
+    private int bulletsShot;
 
-	private void MyInput() {
-		if(allowButtonHold)
-			shooting = Input.GetKey(KeyCode.Mouse0);
-		else
-			shooting = Input.GetKeyDown(KeyCode.Mouse0);
+    private bool shooting;
+    private bool readyToShoot = true;
+    private bool reloading;
 
-		if(Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !reloading) {
-			Reload();
-		}
+    private Camera fpsCam;
 
-		if(readyToShoot && shooting && !reloading && bulletsLeft > 0) {
-			bulletsShot = 0;
-			Shoot();
-			if(bulletsLeft <= 0) {
-				Reload();
-			}
-		}
-	}
+    private Animator animator;
 
-	private void Shoot() {
-		readyToShoot = false;
+    public Action<int, int> OnAmmoChanged; // bullets left / magazine size
 
-		Ray ray = fpsCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-		RaycastHit hit;
+    private void Awake()
+    {
+        bulletsLeft = magazineSize;
+        OnAmmoChanged?.Invoke(bulletsLeft, magazineSize);
+        animator = GetComponent<Animator>();
+        fpsCam = Camera.main;
+    }
 
-		Vector3 targetPoint;
+    private void Update()
+    {
+        MyInput();
+    }
 
-		if(Physics.Raycast(ray, out hit)) {
-			targetPoint = hit.point;
-		}
-		else {
-			targetPoint = ray.GetPoint(75);
-		}
+    private void MyInput()
+    {
+        shooting = allowButtonHold ? Input.GetKey(KeyCode.Mouse0) : Input.GetKeyDown(KeyCode.Mouse0);
 
-		Vector3 directionWithoutSpread = targetPoint - attackPoint.position;
+        if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !reloading)
+        {
+            Reload();
+        }
 
-		float x = Random.Range(-spread, spread);
-		float y = Random.Range(-spread, spread);
+        if (readyToShoot && shooting && !reloading && bulletsLeft > 0)
+        {
+            bulletsShot = 0;
+            Shoot();
+            if (bulletsLeft <= 0)
+            {
+                Reload();
+            }
+        }
+    }
 
-		// Vector3 directionWithSpread = directionWithoutSpread + new Vector3(x, y, 0);
-		GameObject currentBullet = Instantiate(bullet, attackPoint.position, Quaternion.identity);
-		currentBullet.transform.forward = directionWithoutSpread.normalized;
+    private void Shoot()
+    {
+        readyToShoot = false;
 
-		currentBullet.GetComponent<Rigidbody>().AddForce(directionWithoutSpread.normalized * shootForce, ForceMode.Impulse);
-		currentBullet.GetComponent<Rigidbody>().AddForce(fpsCam.transform.up * upwardForce, ForceMode.Impulse);
+        var ray = fpsCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
 
-		if(muzzleFlash != null) {
-			Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity);
-		}
+        var targetPoint = Physics.Raycast(ray, out var hit) ? hit.point : ray.GetPoint(75);
 
-		--bulletsLeft;
-		++bulletsShot;
+        var directionWithoutSpread = targetPoint - attackPoint.position;
 
-		muzzleFlash.GetComponent<ParticleSystem>().Play();
-		animator.SetTrigger("RECOIL");
-		SoundManager.Instance.sound.Play();
+        var x = Random.Range(-spread, spread);
+        var y = Random.Range(-spread, spread);
 
-		if(allowInvoke) {
-			Invoke("ResetShot", timeBetweenShooting);
-			allowInvoke = false;
-		}
+        // Vector3 directionWithSpread = directionWithoutSpread + new Vector3(x, y, 0);
+        var currentBullet = Instantiate(bullet, attackPoint.position, Quaternion.identity);
+        currentBullet.transform.forward = directionWithoutSpread.normalized;
 
-		if(bulletsShot < bulletsPerTap && bulletsLeft > 0) {
-			Invoke("Shoot", timeBetweenShots);
-		}
-	}
+        var currentBulletRigidbody = currentBullet.GetComponent<Rigidbody>();
 
-	private void ResetShot() {
-		readyToShoot = true;
-		allowInvoke = true;
-	}
+        var force = directionWithoutSpread.normalized * shootForce + fpsCam.transform.up * upwardForce;
 
-	private void Reload() {
-		reloading = true;
-		animator.SetTrigger("RELOAD");
-		Invoke("ReloadFinished", reloadTime);
-	}
+        currentBulletRigidbody.AddForce(force, ForceMode.Impulse);
 
-	private void ReloadFinished() {
-		bulletsLeft = magazineSize;
-		reloading = false;
-	}
+        if (muzzleFlash)
+        {
+            Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity);
+        }
+
+        bulletsLeft--;
+        bulletsShot++;
+        OnAmmoChanged?.Invoke(bulletsLeft, magazineSize);
+
+        shootSounds[Random.Range(0, shootSounds.Length)].Play();
+
+        muzzleFlash.GetComponent<ParticleSystem>().Play();
+        animator.SetTrigger("RECOIL");
+
+        if (allowInvoke)
+        {
+            Invoke(nameof(ResetShot), timeBetweenShooting);
+            allowInvoke = false;
+        }
+
+        if (bulletsShot < bulletsPerTap && bulletsLeft > 0)
+        {
+            Invoke(nameof(Shoot), timeBetweenShots);
+        }
+    }
+
+    private void ResetShot()
+    {
+        readyToShoot = true;
+        allowInvoke = true;
+    }
+
+    private void Reload()
+    {
+        reloading = true;
+        animator.SetTrigger("RELOAD");
+        reloadSound.Play();
+        Invoke(nameof(ReloadFinished), reloadTime);
+    }
+
+    private void ReloadFinished()
+    {
+        bulletsLeft = magazineSize;
+        OnAmmoChanged?.Invoke(bulletsLeft, magazineSize);
+        reloading = false;
+    }
 }
