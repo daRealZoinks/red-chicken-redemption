@@ -1,10 +1,10 @@
-using System;
 using System.Linq;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour, IDamageable
 {
     [Header("Movement")] [SerializeField] private float maxSpeed = 13f;
 
@@ -152,5 +152,21 @@ public class PlayerMovement : MonoBehaviour
 
         var jumpVelocity = Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y * gravityScale);
         rb.velocity = new Vector3(rb.velocity.x, jumpVelocity, rb.velocity.z);
+    }
+
+    public int Health { get; set; } = 100;
+
+    public void TakeDamage(int damage)
+    {
+        Health -= damage;
+        if (Health <= 0)
+        {
+            Die();
+        }
+    }
+
+    public void Die()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

@@ -10,7 +10,7 @@ public class Bullet : MonoBehaviour
     [Range(0f, 1f)]
     public float bounciness = 0.5f;
     public float explosionRange, maxLifetime;
-    public int explosionDamage, maxCollisions;
+    public int maxCollisions;
     bool explodeOnTouch = true, useGravity = true;
     string whatEnemy = "Enemy";
 
