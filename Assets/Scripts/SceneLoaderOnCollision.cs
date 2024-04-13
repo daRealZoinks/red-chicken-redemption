@@ -19,10 +19,10 @@ public class SceneLoaderOnCollision : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "SalonDoor")
+        if (collision.gameObject.tag == "SalonDoor" && FindObjectsOfType<Enemy>().Length == 0)
         {
             SceneManager.LoadScene("Bar");
-        } else if (collision.gameObject.tag == "SalonInteriorDoor")
+        } else if (collision.gameObject.tag == "SalonInteriorDoor" && FindObjectsOfType<Enemy>().Length == 0)
         {
             SceneManager.LoadScene("CityAttack");
         }
