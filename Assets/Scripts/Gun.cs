@@ -5,8 +5,7 @@ using Random = UnityEngine.Random;
 public class Gun : MonoBehaviour
 {
     [SerializeField] private GameObject bullet;
-    [SerializeField] private GameObject muzzleFlash;
-
+    public GameObject muzzleFlash;
     [SerializeField] private float shootForce;
     [SerializeField] private float upwardForce;
     [SerializeField] private float timeBetweenShooting;
@@ -15,10 +14,8 @@ public class Gun : MonoBehaviour
     [SerializeField] private float timeBetweenShots;
     [SerializeField] private int magazineSize;
     [SerializeField] private int bulletsPerTap;
-
     [SerializeField] private AudioSource reloadSound;
     [SerializeField] private AudioSource[] shootSounds;
-
     [SerializeField] private Transform attackPoint;
     [SerializeField] private bool allowButtonHold;
     [SerializeField] private bool allowInvoke = true;
@@ -92,19 +89,16 @@ public class Gun : MonoBehaviour
 
         currentBulletRigidbody.AddForce(force, ForceMode.Impulse);
 
-        if (muzzleFlash)
-        {
-            Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity);
-        }
-
         bulletsLeft--;
         bulletsShot++;
         OnAmmoChanged?.Invoke(bulletsLeft, magazineSize);
 
         shootSounds[Random.Range(0, shootSounds.Length)].Play();
 
-        muzzleFlash.GetComponent<ParticleSystem>().Play();
         animator.SetTrigger("RECOIL");
+
+        GameObject flash = Instantiate(muzzleFlash, attackPoint);
+        Destroy(flash, 0.2f);
 
         if (allowInvoke)
         {
