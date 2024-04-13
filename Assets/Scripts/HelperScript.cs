@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class HelperScript : MonoBehaviour
@@ -47,6 +48,18 @@ public class HelperScript : MonoBehaviour
 
     void Update()
     {
+        if (SceneManager.GetActiveScene().name == "City")
+        {
+            PlayCitySceneScript();
+        }
+        else if (SceneManager.GetActiveScene().name == "CityAttack" && FindObjectsOfType<Enemy>().Length == 0)
+        {
+            PlayCityAttackSceneScript();
+        }
+    }
+
+    void PlayCitySceneScript()
+    {
         if (Vector3.Distance(transform.position, Camera.main.transform.position) <= detectionRange)
         {
             playerHasAlreadyReadHelpMessage = true;
@@ -90,5 +103,32 @@ public class HelperScript : MonoBehaviour
         {
             textObject.SetActive(true);
         }
+    }
+
+    void PlayCityAttackSceneScript()
+    {
+        StartCoroutine(MoveToPositionAndPlayScript());
+    }
+
+    IEnumerator MoveToPositionAndPlayScript()
+    {
+        // Define the target position with a Y-axis offset
+        Vector3 targetPosition = transform.position + new Vector3(0, 5f, 0); // Move 5 units up on the Y-axis
+
+        // Calculate the direction to the target
+        Vector3 direction = (targetPosition - transform.position).normalized;
+
+        // Move the GameObject towards the target position
+        while (Vector3.Distance(transform.position, targetPosition) > 1f) // Adjusted threshold
+        {
+            transform.position += direction * Time.deltaTime;
+            yield return null; // Wait for the next frame
+        }
+
+        // Once the GameObject has reached the target position, execute the rest of the script
+        // For example, you can call another method or perform some action here
+        Debug.Log("Moved 5 units up on the Y-axis. Executing the rest of the script...");
+
+        // Your script logic here
     }
 }
