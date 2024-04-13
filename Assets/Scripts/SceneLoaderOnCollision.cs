@@ -22,6 +22,9 @@ public class SceneLoaderOnCollision : MonoBehaviour
         if (collision.gameObject.tag == "SalonDoor")
         {
             SceneManager.LoadScene("Bar");
+        } else if (collision.gameObject.tag == "SalonInteriorDoor")
+        {
+            SceneManager.LoadScene("City");
         }
     }
 }

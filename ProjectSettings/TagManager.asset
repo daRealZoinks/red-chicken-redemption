@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - SalonDoor
+  - SalonInteriorDoor
   layers:
   - Default
   - TransparentFX

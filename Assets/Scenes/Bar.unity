@@ -3521,6 +3521,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1349812105}
+    - targetCorrespondingSourceObject: {fileID: 8265039307966894430, guid: 53e5857f5a7244f45b756c205c6f06cd,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1349812111}
   m_SourcePrefab: {fileID: 100100000, guid: 53e5857f5a7244f45b756c205c6f06cd, type: 3}
 --- !u!1001 &580205215
 PrefabInstance:
@@ -8031,6 +8035,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 577536592}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1349812111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1349812099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f059edc8354b4414f946d91c9794a946, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1355057441
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14733,6 +14749,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: WantedBoard_low
+      objectReference: {fileID: 0}
+    - target: {fileID: 3601398821843615177, guid: bfe27019e2c6b16459f7692922ec4084,
+        type: 3}
+      propertyPath: m_TagString
+      value: SalonInteriorDoor
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
