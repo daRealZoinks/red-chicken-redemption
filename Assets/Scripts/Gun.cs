@@ -1,6 +1,6 @@
 using System;
-using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
 
 public class Gun : MonoBehaviour
@@ -16,15 +16,13 @@ public class Gun : MonoBehaviour
     [SerializeField] private int magazineSize;
     [SerializeField] private int bulletsPerTap;
     [SerializeField] private AudioSource reloadSound;
-    [SerializeField] private AudioSource[] shootSounds;
+    [SerializeField] private AudioSource shootSound;
     [SerializeField] private Transform attackPoint;
-    [SerializeField] private bool allowButtonHold;
     [SerializeField] private bool allowInvoke = true;
 
     private int bulletsLeft;
     private int bulletsShot;
 
-    private bool shooting;
     private bool readyToShoot = true;
     private bool reloading;
 
@@ -42,28 +40,27 @@ public class Gun : MonoBehaviour
         fpsCam = Camera.main;
     }
 
-    private void Update()
+    public void OnShoot(InputAction.CallbackContext context)
     {
-        MyInput();
-    }
+        if (context.phase != InputActionPhase.Started) return;
 
-    private void MyInput()
-    {
-        shooting = allowButtonHold ? Input.GetKey(KeyCode.Mouse0) : Input.GetKeyDown(KeyCode.Mouse0);
+        if (!readyToShoot || reloading || bulletsLeft <= 0) return;
 
-        if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !reloading)
+        bulletsShot = 0;
+        Shoot();
+        if (bulletsLeft <= 0)
         {
             Reload();
         }
+    }
 
-        if (readyToShoot && shooting && !reloading && bulletsLeft > 0)
+    public void OnReload(InputAction.CallbackContext context)
+    {
+        if (context.phase != InputActionPhase.Started) return;
+
+        if (bulletsLeft < magazineSize && !reloading)
         {
-            bulletsShot = 0;
-            Shoot();
-            if (bulletsLeft <= 0)
-            {
-                Reload();
-            }
+            Reload();
         }
     }
 
@@ -71,22 +68,20 @@ public class Gun : MonoBehaviour
     {
         readyToShoot = false;
 
+        shootSound.Play();
+
         var ray = fpsCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
 
         var targetPoint = Physics.Raycast(ray, out var hit) ? hit.point : ray.GetPoint(75);
 
-        var directionWithoutSpread = targetPoint - attackPoint.position;
+        var direction = targetPoint - attackPoint.position;
 
-        var x = Random.Range(-spread, spread);
-        var y = Random.Range(-spread, spread);
-
-        // Vector3 directionWithSpread = directionWithoutSpread + new Vector3(x, y, 0);
         var currentBullet = Instantiate(bullet, attackPoint.position, Quaternion.identity);
-        currentBullet.transform.forward = directionWithoutSpread.normalized;
+        currentBullet.transform.forward = direction.normalized;
 
         var currentBulletRigidbody = currentBullet.GetComponent<Rigidbody>();
 
-        var force = directionWithoutSpread.normalized * shootForce + fpsCam.transform.up * upwardForce;
+        var force = direction.normalized * shootForce + fpsCam.transform.up * upwardForce;
 
         currentBulletRigidbody.AddForce(force, ForceMode.Impulse);
 
@@ -94,11 +89,9 @@ public class Gun : MonoBehaviour
         bulletsShot++;
         OnAmmoChanged?.Invoke(bulletsLeft, magazineSize);
 
-        shootSounds[Random.Range(0, shootSounds.Length)].Play();
-
         animator.SetTrigger("RECOIL");
 
-        GameObject flash = Instantiate(muzzleFlash, attackPoint);
+        var flash = Instantiate(muzzleFlash, attackPoint);
         Destroy(flash, 0.2f);
 
         if (allowInvoke)
