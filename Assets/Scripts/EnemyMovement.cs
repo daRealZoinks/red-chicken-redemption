@@ -14,15 +14,17 @@ public class EnemyMovement : MonoBehaviour
 
     private Vector3 direction;
     private float timer;
+    private Rigidbody rb;
 
     void Start()
     {
+        rb = GetComponent<Rigidbody>();
         ChangeDirection();
     }
 
     void Update()
     {
-        transform.position += direction * moveSpeed * Time.deltaTime;
+        rb.MovePosition(rb.position + direction * moveSpeed * Time.deltaTime);
 
         timer -= Time.deltaTime;
 
