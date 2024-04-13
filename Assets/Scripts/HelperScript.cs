@@ -9,10 +9,14 @@ public class HelperScript : MonoBehaviour
 {
     [SerializeField]
     private float detectionRange = 10f;
+    private Animator animator;
     private GameObject textObject;
     private TextMeshPro textMeshPro;
     private bool playerHasAlreadyReadHelpMessage = false;
     private bool playerHasAlreadyReadStoryMessage = false;
+
+    private bool playerHasKilledAllCityBandits = false;
+    private bool helperFinishedAnimation = false;
 
     // Messages
     private string helpMessage = "Oh no... Please, someone help!";
@@ -21,8 +25,13 @@ public class HelperScript : MonoBehaviour
         "Please stop them, they are going to burn the village down!";
     private string killBanditsMessage = "What are you waiting for?\nDo something already!";
 
+    private string goFindKFC = "You killed them all!\nBut Kentucky F. Cornelius exited the Bar right before you got in.\n" +
+        "He is hiding somewhere in the city, near one of the horse stables.\n Go and punish him before he takes another life!";
+
     void Start()
     {
+        animator = GetComponent<Animator>();
+
         textObject = new GameObject("CharacterText");
         textObject.transform.SetParent(transform, false);
         textObject.transform.localPosition = new Vector3(0, 2, 0);
@@ -52,10 +61,29 @@ public class HelperScript : MonoBehaviour
         {
             PlayCitySceneScript();
         }
-        else if (SceneManager.GetActiveScene().name == "CityAttack" && FindObjectsOfType<Enemy>().Length == 0)
+        else if (SceneManager.GetActiveScene().name == "CityAttack" && FindObjectsOfType<Enemy>().Length == 0 && !playerHasKilledAllCityBandits)
         {
-            PlayCityAttackSceneScript();
+            playerHasKilledAllCityBandits = true;
+            StartCoroutine(PlayCityAttackSceneScript());
         }
+
+        if (Vector3.Distance(transform.position, Camera.main.transform.position) <= detectionRange && SceneManager.GetActiveScene().name == "CityAttack" && helperFinishedAnimation)
+        {
+            Vector3 directionToCamera = Camera.main.transform.position - textObject.transform.position;
+            Quaternion rotationToCamera = Quaternion.LookRotation(directionToCamera);
+            rotationToCamera *= Quaternion.Euler(0, 180, 0);
+            textObject.transform.rotation = rotationToCamera;
+            textObject.SetActive(true);
+
+        }
+        else
+        {
+            if (textObject.activeInHierarchy)
+            {
+                textObject.SetActive(false);
+            }
+        }
+
     }
 
     void PlayCitySceneScript()
@@ -80,11 +108,6 @@ public class HelperScript : MonoBehaviour
             {
                 textObject.SetActive(true);
             }
-
-            Vector3 directionToCamera = Camera.main.transform.position - textObject.transform.position;
-            Quaternion rotationToCamera = Quaternion.LookRotation(directionToCamera);
-            rotationToCamera *= Quaternion.Euler(0, 180, 0);
-            textObject.transform.rotation = rotationToCamera;
         }
         else
         {
@@ -105,30 +128,13 @@ public class HelperScript : MonoBehaviour
         }
     }
 
-    void PlayCityAttackSceneScript()
+    IEnumerator PlayCityAttackSceneScript()
     {
-        StartCoroutine(MoveToPositionAndPlayScript());
-    }
+        animator.SetTrigger("KilledCityBandits");
+        yield return new WaitForSeconds(8);
+        helperFinishedAnimation = true;
 
-    IEnumerator MoveToPositionAndPlayScript()
-    {
-        // Define the target position with a Y-axis offset
-        Vector3 targetPosition = transform.position + new Vector3(0, 5f, 0); // Move 5 units up on the Y-axis
 
-        // Calculate the direction to the target
-        Vector3 direction = (targetPosition - transform.position).normalized;
-
-        // Move the GameObject towards the target position
-        while (Vector3.Distance(transform.position, targetPosition) > 1f) // Adjusted threshold
-        {
-            transform.position += direction * Time.deltaTime;
-            yield return null; // Wait for the next frame
-        }
-
-        // Once the GameObject has reached the target position, execute the rest of the script
-        // For example, you can call another method or perform some action here
-        Debug.Log("Moved 5 units up on the Y-axis. Executing the rest of the script...");
-
-        // Your script logic here
+        textMeshPro.SetText(goFindKFC);
     }
 }
