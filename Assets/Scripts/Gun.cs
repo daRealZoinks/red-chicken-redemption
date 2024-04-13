@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -91,11 +92,6 @@ public class Gun : MonoBehaviour
         var force = directionWithoutSpread.normalized * shootForce + fpsCam.transform.up * upwardForce;
 
         currentBulletRigidbody.AddForce(force, ForceMode.Impulse);
-
-        if (muzzleFlash)
-        {
-            Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity);
-        }
 
         bulletsLeft--;
         bulletsShot++;
