@@ -292,6 +292,7 @@ GameObject:
   - component: {fileID: 3063509697725229817}
   - component: {fileID: 5034037705493721106}
   - component: {fileID: 450680506378045670}
+  - component: {fileID: 5839455618774792894}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -387,6 +388,22 @@ MonoBehaviour:
   bulletSpeed: 20
   minInterval: 1
   maxInterval: 3
+--- !u!114 &5839455618774792894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8265039307966894430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b6d03d7bd46c3c49bc5afc91754ffd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 3
+  minDistance: 1
+  maxDistance: 5
+  changeDirectionInterval: 2
 --- !u!1001 &3215497097146994218
 PrefabInstance:
   m_ObjectHideFlags: 0
