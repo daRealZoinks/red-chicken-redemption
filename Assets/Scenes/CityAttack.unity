@@ -23413,15 +23413,67 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6560843049849246633, guid: 478571ed9a034eb40b2542c73a8a3c31, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3489537193475671710, guid: 478571ed9a034eb40b2542c73a8a3c31,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1412292157}
+    - targetCorrespondingSourceObject: {fileID: 3489537193475671710, guid: 478571ed9a034eb40b2542c73a8a3c31,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1412292156}
     - targetCorrespondingSourceObject: {fileID: 1479193973957875860, guid: 478571ed9a034eb40b2542c73a8a3c31,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 478571ed9a034eb40b2542c73a8a3c31, type: 3}
+--- !u!1 &1412292155 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3489537193475671710, guid: 478571ed9a034eb40b2542c73a8a3c31,
+    type: 3}
+  m_PrefabInstance: {fileID: 1412292154}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &1412292156
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1412292155}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0.02, y: 0.88, z: 2.23}
+--- !u!114 &1412292157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1412292155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b4a69ffa401a604eaf3d657b4c81e79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectionRange: 10
+  textMeshPro: {fileID: 2031515191}
 --- !u!1001 &1412496751
 PrefabInstance:
   m_ObjectHideFlags: 0
