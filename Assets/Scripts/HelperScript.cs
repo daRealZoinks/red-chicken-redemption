@@ -19,6 +19,8 @@ public class HelperScript : MonoBehaviour
     private bool playerHasKilledAllCityBandits = false;
     private bool helperFinishedAnimation = false;
 
+    private bool killedKFC = false;
+
     // Messages
     private string helpMessage = "Oh no... Please, someone help!";
     private string storyMessage = "Dear lord! I think I can hear shootings coming from the Bar direction.\n" +
@@ -65,6 +67,12 @@ public class HelperScript : MonoBehaviour
             {
                 textMeshPro.gameObject.SetActive(false);
             }
+        }
+
+        if (FindObjectsOfType<KFCScript>().Length == 0 && !killedKFC)
+        {
+            killedKFC = true;
+            StartCoroutine(PlayKilledKFCScript());
         }
 
     }
@@ -120,5 +128,11 @@ public class HelperScript : MonoBehaviour
 
 
         textMeshPro.SetText(goFindKFC);
+    }
+
+    IEnumerator PlayKilledKFCScript()
+    {
+        animator.SetTrigger("KilledKFC");
+        yield return new WaitForSeconds(9);
     }
 }

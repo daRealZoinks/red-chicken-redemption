@@ -9,6 +9,12 @@ public class Bullet : MonoBehaviour
     {
         var damageable = collision.gameObject.GetComponent<IDamageable>();
         damageable?.TakeDamage(damage);
+
+        if (collision.gameObject.tag == "KFC")
+        {
+            Destroy(collision.gameObject);
+        }
+
         Destroy(gameObject);
     }
 

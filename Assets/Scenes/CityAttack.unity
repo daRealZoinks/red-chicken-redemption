@@ -23398,6 +23398,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: KFC
       objectReference: {fileID: 0}
+    - target: {fileID: 3489537193475671710, guid: 478571ed9a034eb40b2542c73a8a3c31,
+        type: 3}
+      propertyPath: m_TagString
+      value: KFC
+      objectReference: {fileID: 0}
     - target: {fileID: 5590907113487569234, guid: 478571ed9a034eb40b2542c73a8a3c31,
         type: 3}
       propertyPath: m_text

@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - SalonDoor
   - SalonInteriorDoor
+  - KFC
   layers:
   - Default
   - TransparentFX
