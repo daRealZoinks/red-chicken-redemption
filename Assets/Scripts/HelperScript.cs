@@ -9,9 +9,10 @@ public class HelperScript : MonoBehaviour
 {
     [SerializeField]
     private float detectionRange = 10f;
-    private Animator animator;
-    private GameObject textObject;
+    [SerializeField]
     private TextMeshPro textMeshPro;
+
+    private Animator animator;
     private bool playerHasAlreadyReadHelpMessage = false;
     private bool playerHasAlreadyReadStoryMessage = false;
 
@@ -32,31 +33,18 @@ public class HelperScript : MonoBehaviour
     {
         animator = GetComponent<Animator>();
 
-        textObject = new GameObject("CharacterText");
-        textObject.transform.SetParent(transform, false);
-        textObject.transform.localPosition = new Vector3(0, 2, 0);
-
-        Canvas canvas = textObject.AddComponent<Canvas>();
-        canvas.renderMode = RenderMode.WorldSpace;
-
-        CanvasScaler canvasScaler = textObject.AddComponent<CanvasScaler>();
-        canvasScaler.scaleFactor = 1f;
-
-        GameObject textMesh = new GameObject("TextMesh");
-        textMesh.transform.SetParent(textObject.transform, false);
-
-        textMeshPro = textMesh.AddComponent<TextMeshPro>();
-        textMeshPro.text = helpMessage;
-        textMeshPro.fontSize = 5;
-        textMeshPro.color = Color.white;
-        textMeshPro.alignment = TextAlignmentOptions.Center;
-
-        // Hide the text initially
-        textObject.SetActive(false);
+        textMeshPro.fontSize = 18;
+        textMeshPro.SetText(helpMessage);
+        textMeshPro.gameObject.SetActive(true);
     }
 
     void Update()
     {
+        Vector3 directionToCamera = Camera.main.transform.position - textMeshPro.gameObject.transform.position;
+        Quaternion rotationToCamera = Quaternion.LookRotation(directionToCamera);
+        rotationToCamera *= Quaternion.Euler(0, 180, 0);
+        textMeshPro.gameObject.transform.rotation = rotationToCamera;
+
         if (SceneManager.GetActiveScene().name == "City")
         {
             PlayCitySceneScript();
@@ -69,18 +57,13 @@ public class HelperScript : MonoBehaviour
 
         if (Vector3.Distance(transform.position, Camera.main.transform.position) <= detectionRange && SceneManager.GetActiveScene().name == "CityAttack" && helperFinishedAnimation)
         {
-            Vector3 directionToCamera = Camera.main.transform.position - textObject.transform.position;
-            Quaternion rotationToCamera = Quaternion.LookRotation(directionToCamera);
-            rotationToCamera *= Quaternion.Euler(0, 180, 0);
-            textObject.transform.rotation = rotationToCamera;
-            textObject.SetActive(true);
-
+            textMeshPro.gameObject.SetActive(true);
         }
-        else
+        else if (SceneManager.GetActiveScene().name == "CityAttack")
         {
-            if (textObject.activeInHierarchy)
+            if (textMeshPro.gameObject.activeInHierarchy)
             {
-                textObject.SetActive(false);
+                textMeshPro.gameObject.SetActive(false);
             }
         }
 
@@ -94,26 +77,26 @@ public class HelperScript : MonoBehaviour
 
             if (playerHasAlreadyReadHelpMessage && !playerHasAlreadyReadStoryMessage)
             {
-                textMeshPro.fontSize = 3;
+                textMeshPro.fontSize = 7;
                 textMeshPro.SetText(storyMessage);
             }
 
             if (playerHasAlreadyReadStoryMessage)
             {
-                textMeshPro.fontSize = 3;
+                textMeshPro.fontSize = 7;
                 textMeshPro.SetText(killBanditsMessage);
             }
 
-            if (!textObject.activeInHierarchy)
+            if (!textMeshPro.gameObject.activeInHierarchy)
             {
-                textObject.SetActive(true);
+                textMeshPro.gameObject.SetActive(true);
             }
         }
         else
         {
-            if (textObject.activeInHierarchy)
+            if (textMeshPro.gameObject.activeInHierarchy)
             {
-                textObject.SetActive(false);
+                textMeshPro.gameObject.SetActive(false);
             }
 
             if (playerHasAlreadyReadHelpMessage && !playerHasAlreadyReadStoryMessage)
@@ -124,7 +107,7 @@ public class HelperScript : MonoBehaviour
 
         if (!playerHasAlreadyReadHelpMessage)
         {
-            textObject.SetActive(true);
+            textMeshPro.gameObject.SetActive(true);
         }
     }
 
@@ -132,6 +115,7 @@ public class HelperScript : MonoBehaviour
     {
         animator.SetTrigger("KilledCityBandits");
         yield return new WaitForSeconds(8);
+        textMeshPro.fontSize = 7;
         helperFinishedAnimation = true;
 
 
