@@ -2,7 +2,9 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    [SerializeField] private float speed = 5f;
+    [SerializeField] private float maxSpeed = 13f;
+    [SerializeField] private float acceleration = 96f;
+    [SerializeField] private float deceleration = 128f;
 
     [SerializeField] private float positionChangeRadius = 10f;
     [SerializeField] private float playerPositionInfluenceMin = 0.2f;
@@ -27,12 +29,41 @@ public class EnemyMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        var direction = (targetPosition - transform.position).normalized;
+        var direction = targetPosition - transform.position;
+        var localDirection = transform.InverseTransformDirection(direction);
+        var isTargetFarEnough = Vector3.Distance(transform.position, targetPosition) > 1f;
+        Move(isTargetFarEnough ? new Vector2(localDirection.x, localDirection.z) : Vector2.zero);
+    }
 
-        if (Vector3.Distance(transform.position, targetPosition) > 1)
+    private void Move(Vector2 moveInput)
+    {
+        var horizontalVelocity = new Vector3
         {
-            rb.MovePosition(transform.position + speed * Time.fixedDeltaTime * direction);
+            x = rb.velocity.x,
+            z = rb.velocity.z
+        };
+
+        var horizontalClampedVelocity =
+            horizontalVelocity.normalized * Mathf.Clamp01(horizontalVelocity.magnitude / maxSpeed);
+
+        var moveDirection = (moveInput.x * transform.right + moveInput.y * transform.forward).normalized;
+
+        Vector3 finalForce;
+
+        if (moveDirection != Vector3.zero)
+        {
+            var accelerationForce = moveDirection - horizontalClampedVelocity;
+            accelerationForce *= acceleration;
+            finalForce = accelerationForce;
         }
+        else
+        {
+            var decelerationForce = -horizontalClampedVelocity;
+            decelerationForce *= deceleration;
+            finalForce = decelerationForce;
+        }
+
+        rb.AddForce(finalForce, ForceMode.Acceleration);
     }
 
     private void OnDestroy()

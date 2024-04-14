@@ -46,9 +46,10 @@ public class PlayerMovement : MonoBehaviour, IDamageable
     {
         var contacts = collision.contacts;
 
-        var isStandingOnSurface = contacts.Any(contact => Vector3.Dot(contact.normal, Vector3.up) > 0.5f);
-
-        isGrounded = isStandingOnSurface;
+        if (contacts.Any(contact => Vector3.Dot(contact.normal, Vector3.up) > 0.5f))
+        {
+            isGrounded = true;
+        }
     }
 
     private void OnCollisionExit()
