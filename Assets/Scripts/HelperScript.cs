@@ -25,7 +25,7 @@ public class HelperScript : MonoBehaviour
     private string helpMessage = "Oh no... Please, someone help!";
     private string storyMessage = "Dear lord! I think I can hear shootings coming from the Bar direction.\n" +
         "There were some strange looking guys roaming around today.\nBet it must be Kentucky F. Cornelius and his men again...\n" +
-        "Please stop them, they are going to burn the village down!";
+        "Please stop them, they are going to burn down the village!";
     private string killBanditsMessage = "What are you waiting for?\nDo something already!";
 
     private string goFindKFC = "You killed them all!\nBut Kentucky F. Cornelius exited the Bar right before you got in.\n" +
@@ -71,7 +71,7 @@ public class HelperScript : MonoBehaviour
             }
         }
 
-        if (FindObjectsOfType<KFCScript>().Length == 0 && !killedKFC)
+        if (FindObjectsOfType<KFCScript>().Length == 0 && !killedKFC && SceneManager.GetActiveScene().name == "CityAttack")
         {
             killedKFC = true;
             textMeshPro.text = killedKFCMessage;
@@ -136,6 +136,9 @@ public class HelperScript : MonoBehaviour
     IEnumerator PlayKilledKFCScript()
     {
         animator.SetTrigger("KilledKFC");
+        textMeshPro.gameObject.SetActive(false);
         yield return new WaitForSeconds(9);
+
+        textMeshPro.gameObject.SetActive(true);
     }
 }
