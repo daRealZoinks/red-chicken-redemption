@@ -5408,6 +5408,8 @@ GameObject:
   - component: {fileID: 5034037705493721106}
   - component: {fileID: 117959545125879665}
   - component: {fileID: 7292867496636397161}
+  - component: {fileID: 1815018057949775737}
+  - component: {fileID: 7892824152008536416}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -5655,6 +5657,32 @@ MonoBehaviour:
   gravityScale: 6
   sensitivity: 0.1
   virtualCamera: {fileID: 1504328667943614631}
+--- !u!114 &1815018057949775737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8265039307966894430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f059edc8354b4414f946d91c9794a946, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7892824152008536416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8265039307966894430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cfac311102766645bea2504922144e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slowDownFactor: 0.3
+  slowDownLength: 0.1
 --- !u!1 &8468744847719401763
 GameObject:
   m_ObjectHideFlags: 0
