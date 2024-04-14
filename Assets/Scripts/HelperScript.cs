@@ -17,18 +17,14 @@ public class HelperScript : MonoBehaviour
     private Animator animator;
     private bool playerHasAlreadyReadHelpMessage = false;
     private bool playerHasAlreadyReadStoryMessage = false;
-
     private bool playerHasKilledAllCityBandits = false;
     private bool helperFinishedAnimation = false;
-
     private bool killedKFC = false;
-
     private bool playedAudioHelpMessage = false;
     private bool playedAudioStoryMessage = false;
     private bool playedAudioGoKillBandits = false;
     private bool playedAudioGoFindKFC = false;
     private bool playedKilledKFCMessage = false;
-
 
     // Messages
     private string helpMessage = "Oh no... Please, someone help!";
@@ -78,6 +74,7 @@ public class HelperScript : MonoBehaviour
         else if (SceneManager.GetActiveScene().name == "CityAttack" && FindObjectsOfType<Enemy>().Length == 0 && !playerHasKilledAllCityBandits)
         {
             playerHasKilledAllCityBandits = true;
+
             StartCoroutine(PlayCityAttackSceneScript());
         }
 
