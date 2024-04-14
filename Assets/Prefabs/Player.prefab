@@ -5701,7 +5701,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slowDownFactor: 0.3
   audioMixer: {fileID: 24100000, guid: b54ed5e57ae412048b3de78043c0220d, type: 2}
-  smoothTime: 5
+  smoothTime: 8
+  volumeProfile: {fileID: 11400000, guid: a6560a915ef98420e9faacc1c7438823, type: 2}
 --- !u!1 &8468744847719401763
 GameObject:
   m_ObjectHideFlags: 0
