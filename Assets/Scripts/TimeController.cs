@@ -51,5 +51,9 @@ public class TimeController : MonoBehaviour
     {
         volumeProfile.TryGet<Vignette>(out var vignette);
         vignette.intensity.value = 0.25f;
+        volumeProfile.TryGet<ChromaticAberration>(out var chromaticAberration);
+        chromaticAberration.intensity.value = 0f;
+        volumeProfile.TryGet<LensDistortion>(out var lensDistortion);
+        lensDistortion.intensity.value = 0f;
     }
 }
