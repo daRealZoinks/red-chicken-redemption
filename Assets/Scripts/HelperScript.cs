@@ -11,6 +11,8 @@ public class HelperScript : MonoBehaviour
     private float detectionRange = 10f;
     [SerializeField]
     private TextMeshPro textMeshPro;
+    [SerializeField]
+    private HelperAudioPlayer audioManager;
 
     private Animator animator;
     private bool playerHasAlreadyReadHelpMessage = false;
@@ -20,6 +22,13 @@ public class HelperScript : MonoBehaviour
     private bool helperFinishedAnimation = false;
 
     private bool killedKFC = false;
+
+    private bool playedAudioHelpMessage = false;
+    private bool playedAudioStoryMessage = false;
+    private bool playedAudioGoKillBandits = false;
+    private bool playedAudioGoFindKFC = false;
+    private bool playedKilledKFCMessage = false;
+
 
     // Messages
     private string helpMessage = "Oh no... Please, someone help!";
@@ -35,11 +44,24 @@ public class HelperScript : MonoBehaviour
 
     void Start()
     {
+        if (SceneManager.GetActiveScene().name == "CityAttack")
+        {
+            playedAudioHelpMessage = true;
+            playedAudioStoryMessage = true;
+            playedAudioGoKillBandits = true;
+        }
+
         animator = GetComponent<Animator>();
 
         textMeshPro.fontSize = 18;
         textMeshPro.SetText(helpMessage);
         textMeshPro.gameObject.SetActive(true);
+
+        if (SceneManager.GetActiveScene().name == "City")
+        {
+            playedAudioHelpMessage = true;
+            StartCoroutine(PlayHelpMessage());
+        }
     }
 
     void Update()
@@ -86,6 +108,12 @@ public class HelperScript : MonoBehaviour
         {
             playerHasAlreadyReadHelpMessage = true;
 
+            if (!playedAudioStoryMessage && audioManager.FinishedPlayingCurrentMessage())
+            {
+                playedAudioStoryMessage = true;
+                audioManager.PlayStoryMessage();
+            }
+
             if (playerHasAlreadyReadHelpMessage && !playerHasAlreadyReadStoryMessage)
             {
                 textMeshPro.fontSize = 7;
@@ -96,6 +124,12 @@ public class HelperScript : MonoBehaviour
             {
                 textMeshPro.fontSize = 7;
                 textMeshPro.SetText(killBanditsMessage);
+
+                if (!playedAudioGoKillBandits &&  audioManager.FinishedPlayingCurrentMessage())
+                {
+                    playedAudioGoKillBandits = true;
+                    audioManager.PlayGoKillBanditsMessage();
+                }
             }
 
             if (!textMeshPro.gameObject.activeInHierarchy)
@@ -131,6 +165,11 @@ public class HelperScript : MonoBehaviour
 
 
         textMeshPro.SetText(goFindKFC);
+        if (!playedAudioGoFindKFC && audioManager.FinishedPlayingCurrentMessage())
+        {
+            playedAudioGoFindKFC = true;
+            audioManager.PlayGoFindKFCAudio();
+        }
     }
 
     IEnumerator PlayKilledKFCScript()
@@ -140,5 +179,18 @@ public class HelperScript : MonoBehaviour
         yield return new WaitForSeconds(9);
 
         textMeshPro.gameObject.SetActive(true);
+
+        if (!playedKilledKFCMessage && audioManager.FinishedPlayingCurrentMessage())
+        {
+            playedKilledKFCMessage = true;
+            audioManager.PlayKilledKFCAudio();
+        }
+
+    }
+
+    IEnumerator PlayHelpMessage()
+    {
+        yield return new WaitForSeconds(2);
+        audioManager.PlayHelpMessage();
     }
 }
