@@ -4,50 +4,39 @@ using UnityEngine;
 public class SoundManagerCityScene : MonoBehaviour
 {
     [SerializeField]
-    private AudioClip singleRevolverShot;
+    private AudioSource singleRevolverShot;
     [SerializeField]
-    private AudioClip multipleRevolverShot;
+    private AudioSource multipleRevolverShot;
 
-    private AudioSource audioSource;
-
-    void Start()
+    private void Start()
     {
-        audioSource = GetComponent<AudioSource>();
-        if (audioSource == null)
-        {
-            audioSource = gameObject.AddComponent<AudioSource>();
-        }
-
         StartCoroutine(PlaySounds());
     }
 
-    IEnumerator PlaySounds()
+    private IEnumerator PlaySounds()
     {
         yield return new WaitForSeconds(5f);
 
         while (true)
         {
-            int randomIndex = Random.Range(0, 3);
-            AudioClip selectedClip = randomIndex < 2 ? singleRevolverShot : multipleRevolverShot;
+            var randomIndex = Random.Range(0, 3);
+            var selectedClip = randomIndex < 2 ? singleRevolverShot : multipleRevolverShot;
 
             if (selectedClip == singleRevolverShot)
             {
-                audioSource.clip = singleRevolverShot;
-                audioSource.Play();
-                yield return new WaitForSeconds(audioSource.clip.length);
+                singleRevolverShot.Play();
+                yield return new WaitForSeconds(singleRevolverShot.clip.length);
 
-                audioSource.clip = singleRevolverShot;
-                audioSource.Play();
-                yield return new WaitForSeconds(audioSource.clip.length);
+                singleRevolverShot.Play();
+                yield return new WaitForSeconds(singleRevolverShot.clip.length);
             }
             else
             {
-                audioSource.clip = selectedClip;
-                audioSource.Play();
-                yield return new WaitForSeconds(audioSource.clip.length);
+                selectedClip.Play();
+                yield return new WaitForSeconds(selectedClip.clip.length);
             }
 
-            float waitTime = Random.Range(5f, 6f);
+            var waitTime = Random.Range(5f, 6f);
             yield return new WaitForSeconds(waitTime);
         }
     }

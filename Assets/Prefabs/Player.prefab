@@ -5147,7 +5147,8 @@ AudioSource:
   m_GameObject: {fileID: 5548323112628515925}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: b54ed5e57ae412048b3de78043c0220d,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: ac050fc0fdb7e4a46966963f0ea997ef, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -5275,7 +5276,8 @@ AudioSource:
   m_GameObject: {fileID: 6889023973728463724}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: b54ed5e57ae412048b3de78043c0220d,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 812967dfe00fdd9498b41e3482f52fc4, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -5631,6 +5633,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 7caa87c5-ac57-4f17-b588-813cab65d651
     m_ActionName: Player/New action
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7892824152008536416}
+        m_TargetAssemblyTypeName: TimeController, Assembly-CSharp
+        m_MethodName: OnSlowMotion
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e12022f6-4624-4553-9589-04e9db7c0456
+    m_ActionName: Player/SlowMotion[/Keyboard/ctrl]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -5682,7 +5700,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slowDownFactor: 0.3
-  slowDownLength: 0.1
+  audioMixer: {fileID: 24100000, guid: b54ed5e57ae412048b3de78043c0220d, type: 2}
+  smoothTime: 5
 --- !u!1 &8468744847719401763
 GameObject:
   m_ObjectHideFlags: 0

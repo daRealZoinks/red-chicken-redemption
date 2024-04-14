@@ -1,40 +1,34 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
+using UnityEngine.InputSystem;
 
 public class TimeController : MonoBehaviour
 {
-    [SerializeField]
-    public float slowDownFactor = 0.3f;
-    [SerializeField]
-    public float slowDownLength = 0.1f;
+    [SerializeField] private float slowDownFactor = 0.3f;
+    [SerializeField] private AudioMixer audioMixer;
+    [SerializeField] private float smoothTime = 0.3f;
 
-    void Start()
+    private bool slowMotion;
+
+    public void OnSlowMotion(InputAction.CallbackContext context)
     {
-
-    }
-
-    void Update()
-    {
-        if (Input.GetKey(KeyCode.LeftControl))
+        slowMotion = context.phase switch
         {
-            SlowDownTime();
-        }
-
-        if (!Input.GetKey(KeyCode.LeftControl))
-        {
-            StartCoroutine(ResetTimeScale());
-        }
+            InputActionPhase.Started => true,
+            InputActionPhase.Canceled => false,
+            _ => slowMotion
+        };
     }
 
-    void SlowDownTime()
+    private void Update()
     {
-        Time.timeScale = slowDownFactor;
-    }
+        var targetTimeScale = slowMotion ? slowDownFactor : 1f;
+        var targetPitch = slowMotion ? slowDownFactor : 1f;
 
-    IEnumerator ResetTimeScale()
-    {
-        yield return new WaitForSeconds(slowDownLength);
-        Time.timeScale = 1f;
+        Time.timeScale = Mathf.Lerp(Time.timeScale, targetTimeScale, smoothTime * Time.deltaTime);
+
+        var f = audioMixer.GetFloat("MasterPitch", out var pitch) ? pitch : 1f;
+        var value = Mathf.Lerp(f, targetPitch, smoothTime * Time.deltaTime);
+        audioMixer.SetFloat("MasterPitch", value);
     }
 }
