@@ -41,7 +41,8 @@ AudioSource:
   m_GameObject: {fileID: 52339627991606031}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: b54ed5e57ae412048b3de78043c0220d,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: c23d14d2f545b164eb31ec7ff624d41e, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -280,8 +281,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   positionChangeRadius: 10
-  timeMinToChangePosition: 3
-  timeMaxToChangePosition: 6
+  playerPositionInfluenceMin: 0.2
+  playerPositionInfluenceMax: 0.8
+  timeToChangePositionMin: 3
+  timeToChangePositionMax: 6
 --- !u!1001 &6160207074541021738
 PrefabInstance:
   m_ObjectHideFlags: 0
