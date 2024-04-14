@@ -30,6 +30,8 @@ public class HelperScript : MonoBehaviour
 
     private string goFindKFC = "You killed them all!\nBut Kentucky F. Cornelius exited the Bar right before you got in.\n" +
         "He is hiding somewhere in the city, near one of the horse stables.\n Go and punish him before he takes another life!";
+    private string killedKFCMessage = "I can already feel the average body mass index decresing.\n" +
+        "Great job!";
 
     void Start()
     {
@@ -72,6 +74,7 @@ public class HelperScript : MonoBehaviour
         if (FindObjectsOfType<KFCScript>().Length == 0 && !killedKFC)
         {
             killedKFC = true;
+            textMeshPro.text = killedKFCMessage;
             StartCoroutine(PlayKilledKFCScript());
         }
 
