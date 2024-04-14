@@ -1,18 +1,15 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class HelperScript : MonoBehaviour
 {
-    [SerializeField]
-    private float detectionRange = 10f;
-    [SerializeField]
-    private TextMeshPro textMeshPro;
-    [SerializeField]
-    private HelperAudioPlayer audioManager;
+    [SerializeField] private float detectionRange = 10f;
+    [SerializeField] private TextMeshPro textMeshPro;
+    [SerializeField] private HelperAudioPlayer audioManager;
+
+    [SerializeField] private Animator creditsAnimator;
 
     private Animator animator;
     private bool playerHasAlreadyReadHelpMessage = false;
@@ -28,15 +25,19 @@ public class HelperScript : MonoBehaviour
 
     // Messages
     private string helpMessage = "Oh no... Please, someone help!";
+
     private string storyMessage = "Dear lord! I think I can hear shootings coming from the Bar direction.\n" +
-        "There were some strange looking guys roaming around today.\nBet it must be Kentucky F. Cornelius and his men again...\n" +
-        "Please stop them, they are going to burn down the village!";
+                                  "There were some strange looking guys roaming around today.\nBet it must be Kentucky F. Cornelius and his men again...\n" +
+                                  "Please stop them, they are going to burn down the village!";
+
     private string killBanditsMessage = "What are you waiting for?\nDo something already!";
 
-    private string goFindKFC = "You killed them all!\nBut Kentucky F. Cornelius exited the Bar right before you got in.\n" +
+    private string goFindKFC =
+        "You killed them all!\nBut Kentucky F. Cornelius exited the Bar right before you got in.\n" +
         "He is hiding somewhere in the city, near one of the horse stables.\n Go and punish him before he takes another life!";
+
     private string killedKFCMessage = "I can already feel the average body mass index decresing.\n" +
-        "Great job!";
+                                      "Great job!";
 
     void Start()
     {
@@ -71,14 +72,16 @@ public class HelperScript : MonoBehaviour
         {
             PlayCitySceneScript();
         }
-        else if (SceneManager.GetActiveScene().name == "CityAttack" && FindObjectsOfType<Enemy>().Length == 0 && !playerHasKilledAllCityBandits)
+        else if (SceneManager.GetActiveScene().name == "CityAttack" && FindObjectsOfType<Enemy>().Length == 0 &&
+                 !playerHasKilledAllCityBandits)
         {
             playerHasKilledAllCityBandits = true;
 
             StartCoroutine(PlayCityAttackSceneScript());
         }
 
-        if (Vector3.Distance(transform.position, Camera.main.transform.position) <= detectionRange && SceneManager.GetActiveScene().name == "CityAttack" && helperFinishedAnimation)
+        if (Vector3.Distance(transform.position, Camera.main.transform.position) <= detectionRange &&
+            SceneManager.GetActiveScene().name == "CityAttack" && helperFinishedAnimation)
         {
             textMeshPro.gameObject.SetActive(true);
         }
@@ -90,13 +93,13 @@ public class HelperScript : MonoBehaviour
             }
         }
 
-        if (FindObjectsOfType<KFCScript>().Length == 0 && !killedKFC && SceneManager.GetActiveScene().name == "CityAttack")
+        if (FindObjectsOfType<KFCScript>().Length == 0 && !killedKFC &&
+            SceneManager.GetActiveScene().name == "CityAttack")
         {
             killedKFC = true;
             textMeshPro.text = killedKFCMessage;
             StartCoroutine(PlayKilledKFCScript());
         }
-
     }
 
     void PlayCitySceneScript()
@@ -122,7 +125,7 @@ public class HelperScript : MonoBehaviour
                 textMeshPro.fontSize = 7;
                 textMeshPro.SetText(killBanditsMessage);
 
-                if (!playedAudioGoKillBandits &&  audioManager.FinishedPlayingCurrentMessage())
+                if (!playedAudioGoKillBandits && audioManager.FinishedPlayingCurrentMessage())
                 {
                     playedAudioGoKillBandits = true;
                     audioManager.PlayGoKillBanditsMessage();
@@ -183,6 +186,9 @@ public class HelperScript : MonoBehaviour
             audioManager.PlayKilledKFCAudio();
         }
 
+        yield return new WaitForSeconds(7);
+
+        creditsAnimator.SetTrigger("CreditsSlide");
     }
 
     IEnumerator PlayHelpMessage()

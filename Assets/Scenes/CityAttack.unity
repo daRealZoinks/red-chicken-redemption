@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028328, g: 0.22571322, b: 0.30692163, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -7991,10 +7991,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1812767101}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -150, y: -564}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.00002797, y: -1808}
+  m_SizeDelta: {x: 2908.5, y: 3833.1912}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &454134935
 MonoBehaviour:
@@ -8016,18 +8016,18 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Red Chicken Redemption\n\r\n\nDeveloped by:\r The MCNP Team\n\r\nLead
-    Developer: Vlad Moldarashu\nGame Designer: Alex-Dev02\nArt Director: Steven-Sausage,
-    Alex-Dev02\nLead Programmer: Vlad\nSound Designer: 11 labs\nArt Team:\r Sketchfab\n\r\nEnvironment
-    Artist: Tot Alex\nConcept Artist: nu exista\nUI/UX Designer: vlad si stefan\nProgramming
-    Team:\r The MCNP Team\n\r\nGameplay Programmer: Vlad\nAI Programmer: Alex-Dev02,
-    Vlad\n\r\nSound Effects Designer: Steven\nVoice Acting Director: Altex-Dev02\nQuality
-    Assurance:\r Vlad_Murarashu\n\r\nQA Testers: toata lumea + prietenii\nAdditional
-    Support:\r leakers\n\r\nMarketing Manager: Steven\nProject Coordinator: Vlad-Murarashu\nSpecial
-    Thanks:\r \nOur families and friends for their endless support\r\nAnAlphaBeta
+  m_text: "Red Chicken Redemption\r\n\r\nDeveloped by: The MCNP Team\r\n\r\nLead
+    Developer: Vlad Moldarashu\r\nGame Designer: Alex-Dev02\r\nArt Director: Steven-Sausage,
+    Alex-Dev02\r\nLead Programmer: Vlad\r\nSound Designer: 11 labs\r\nArt Team: Sketchfab\r\n\r\nEnvironment
+    Artist: Tot Alex\r\nConcept Artist: nu exista\r\nUI/UX Designer: vlad si stefan\r\nProgramming
+    Team: The MCNP Team\r\n\r\nGameplay Programmer: Vlad\r\nAI Programmer: Alex-Dev02,
+    Vlad\r\n\r\nSound Effects Designer: Steven\r\nVoice Acting Director: Altex-Dev02\r\nQuality
+    Assurance: Vlad_Murarashu\r\n\r\nQA Testers: toata lumea + prietenii\r\nAdditional
+    Support: leakers\r\n\r\nMarketing Manager: Steven\r\nProject Coordinator: Vlad-Murarashu\r\n\r\nSpecial
+    Thanks:\r\n \r\nOur families and friends for their endless support\r\nAnAlphaBeta
     testers who helped improve the game\r\nThe gaming community for their feedback
-    and enthusiasm\r.\n\n\xA9 2024 The MCNP Team. \nAll rights reserved.\n\ncreat
-    de: Murarasu Vlad, Moise Ionut, Petrea Cristian"
+    and enthusiasm.\r\n\r\n\xA9 2024 The MCNP Team. All rights reserved.\r\n\r\ncreat
+    de:\r\nMurarasu Vlad\r\nMoise Ionut\r-Alex\nPetrea Cristian"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -8054,13 +8054,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 80
+  m_fontSizeBase: 80
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 2
+  m_fontStyle: 3
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -8070,7 +8070,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -8090,7 +8090,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -1015.42694, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -8114,7 +8114,7 @@ Animator:
   m_GameObject: {fileID: 454134932}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3949ddddcbc9d15428a3ada641b33c7e, type: 2}
+  m_Controller: {fileID: 9100000, guid: 013afb03fccf2f143a4a36d30f9e257e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -13149,6 +13149,11 @@ PrefabInstance:
       propertyPath: audioManager
       value: 
       objectReference: {fileID: 1206136998}
+    - target: {fileID: 7693072768655022183, guid: 534c73d126ad5354b9902d66d5c10c5a,
+        type: 3}
+      propertyPath: creditsAnimator
+      value: 
+      objectReference: {fileID: 454134937}
     - target: {fileID: 8954893280052584946, guid: 534c73d126ad5354b9902d66d5c10c5a,
         type: 3}
       propertyPath: m_Mesh
