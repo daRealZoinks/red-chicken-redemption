@@ -33,6 +33,11 @@ public class Enemy : MonoBehaviour, IDamageable
         transform.rotation = Quaternion.Euler(0, rotation.y, 0);
     }
 
+    private void OnDestroy()
+    {
+        CancelInvoke();
+    }
+
     private void Fire()
     {
         shootSound.Play();
@@ -42,7 +47,7 @@ public class Enemy : MonoBehaviour, IDamageable
         bulletRigidbody.AddForce(direction.normalized * bulletSpeed, ForceMode.Impulse);
     }
 
-    public int Health { get; set; } = 100;
+    public int Health { get; set; } = 20;
 
     public void TakeDamage(int damage)
     {

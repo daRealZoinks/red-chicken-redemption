@@ -157,7 +157,7 @@ public class PlayerMovement : MonoBehaviour, IDamageable
         rb.velocity = new Vector3(rb.velocity.x, jumpVelocity, rb.velocity.z);
     }
 
-    public int Health { get; set; } = 500;
+    public int Health { get; set; } = 100;
 
     public void TakeDamage(int damage)
     {

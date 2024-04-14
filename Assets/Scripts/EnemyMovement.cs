@@ -1,46 +1,54 @@
-using System.Collections;
 using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    [SerializeField]
-    private float moveSpeed = 3f;
-    [SerializeField]
-    private float minDistance = 1f;
-    [SerializeField]
-    private float maxDistance = 5f;
-    [SerializeField]
-    private float changeDirectionInterval = 2f;
+    [SerializeField] private float speed = 5f;
 
-    private Vector3 direction;
-    private float timer;
+    [SerializeField] private float positionChangeRadius = 10f;
+    [SerializeField] private float playerPositionInfluenceMin = 0.2f;
+    [SerializeField] private float playerPositionInfluenceMax = 0.8f;
+
+    [SerializeField] private float timeToChangePositionMin = 3f;
+    [SerializeField] private float timeToChangePositionMax = 6f;
+
+    private Vector3 targetPosition;
+
     private Rigidbody rb;
 
-    void Start()
+    private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        ChangeDirection();
+        targetPosition = transform.position;
+
+        var timeToChangePosition = Random.Range(timeToChangePositionMin, timeToChangePositionMax);
+
+        InvokeRepeating(nameof(UpdateTargetPosition), timeToChangePosition, timeToChangePosition);
     }
 
-    void Update()
+    private void FixedUpdate()
     {
-        rb.MovePosition(rb.position + direction * moveSpeed * Time.deltaTime);
+        var direction = (targetPosition - transform.position).normalized;
 
-        timer -= Time.deltaTime;
-
-        if (timer <= 0)
+        if (Vector3.Distance(transform.position, targetPosition) > 1)
         {
-            ChangeDirection();
+            rb.MovePosition(transform.position + speed * Time.fixedDeltaTime * direction);
         }
     }
 
-    void ChangeDirection()
+    private void OnDestroy()
     {
-        float xDirection = Random.Range(-1f, 1f);
-        float zDirection = Random.Range(-1f, 1f);
+        CancelInvoke();
+    }
 
-        direction = new Vector3(xDirection, 0, zDirection).normalized;
+    private void UpdateTargetPosition()
+    {
+        var rangeX = Random.Range(-10, 10);
+        var rangeZ = Random.Range(-10, 10);
 
-        timer = changeDirectionInterval;
+        var playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
+
+        var playerPositionInfluence = Random.Range(playerPositionInfluenceMin, playerPositionInfluenceMax);
+
+        targetPosition = transform.position + playerPosition * playerPositionInfluence + new Vector3(rangeX, 0, rangeZ);
     }
 }
