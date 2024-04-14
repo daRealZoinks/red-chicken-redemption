@@ -1,12 +1,11 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Random = UnityEngine.Random;
 
 public class Gun : MonoBehaviour
 {
     [SerializeField] private GameObject bullet;
-    public GameObject muzzleFlash;
+    [SerializeField] private ParticleSystem muzzleFlash;
     [SerializeField] private float shootForce;
     [SerializeField] private float upwardForce;
     [SerializeField] private float timeBetweenShooting;
@@ -68,6 +67,7 @@ public class Gun : MonoBehaviour
     {
         readyToShoot = false;
 
+        muzzleFlash.Play();
         shootSound.Play();
 
         var ray = fpsCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
@@ -90,9 +90,6 @@ public class Gun : MonoBehaviour
         OnAmmoChanged?.Invoke(bulletsLeft, magazineSize);
 
         animator.SetTrigger("RECOIL");
-
-        var flash = Instantiate(muzzleFlash, attackPoint);
-        Destroy(flash, 0.2f);
 
         if (allowInvoke)
         {

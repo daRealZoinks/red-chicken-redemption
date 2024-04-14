@@ -5,6 +5,7 @@ using Random = UnityEngine.Random;
 public class Enemy : MonoBehaviour, IDamageable
 {
     [SerializeField] private Transform firePoint;
+    [SerializeField] private AudioSource shootSound;
 
     [SerializeField] private Bullet bulletPrefab;
 
@@ -34,6 +35,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     private void Fire()
     {
+        shootSound.Play();
         var bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         var bulletRigidbody = bullet.GetComponent<Rigidbody>();
         var direction = target.position - transform.position;

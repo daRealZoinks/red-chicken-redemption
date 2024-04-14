@@ -60,7 +60,7 @@ public class PlayerMovement : MonoBehaviour, IDamageable
     {
         Move(moveInput);
 
-        AppliAdditionalGravity();
+        ApplyAdditionalGravity();
     }
 
     private void Update()
@@ -68,7 +68,7 @@ public class PlayerMovement : MonoBehaviour, IDamageable
         Rotate(lookInput);
     }
 
-    private void AppliAdditionalGravity()
+    private void ApplyAdditionalGravity()
     {
         if (isGrounded) return;
 
