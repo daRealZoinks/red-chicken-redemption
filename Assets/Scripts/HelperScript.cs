@@ -52,7 +52,7 @@ public class HelperScript : MonoBehaviour
         textMeshPro.alignment = TextAlignmentOptions.Center;
 
         // Hide the text initially
-        textObject.SetActive(false);
+        textObject.SetActive(true);
     }
 
     void Update()
@@ -76,7 +76,7 @@ public class HelperScript : MonoBehaviour
             textObject.SetActive(true);
 
         }
-        else
+        else if (SceneManager.GetActiveScene().name == "CityAttack")
         {
             if (textObject.activeInHierarchy)
             {
