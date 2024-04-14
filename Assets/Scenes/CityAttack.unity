@@ -12975,10 +12975,19 @@ PrefabInstance:
       propertyPath: m_Name
       value: Helper
       objectReference: {fileID: 0}
+    - target: {fileID: 8954893280052584946, guid: 534c73d126ad5354b9902d66d5c10c5a,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8816849073344775544, guid: 534c73d126ad5354b9902d66d5c10c5a,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 534c73d126ad5354b9902d66d5c10c5a, type: 3}
 --- !u!1 &789517783 stripped
 GameObject:
@@ -23393,6 +23402,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_text
       value: I am going to turn all of you into delicious fried chicken!
+      objectReference: {fileID: 0}
+    - target: {fileID: 7268117542745895252, guid: 478571ed9a034eb40b2542c73a8a3c31,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 4.06
       objectReference: {fileID: 0}
     - target: {fileID: 8186862741882849850, guid: 478571ed9a034eb40b2542c73a8a3c31,
         type: 3}
